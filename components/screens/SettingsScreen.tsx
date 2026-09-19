@@ -32,8 +32,9 @@ function ToggleRow({
           width: 50,
           height: 28,
           borderRadius: 999,
-          border: `1.5px solid rgba(${value ? "87,255,140" : "255,255,255"},0.6)`,
-          background: value ? "rgba(87,255,140,0.25)" : "rgba(255,255,255,0.08)",
+          border: `1.5px solid rgba(${value ? "87,255,140" : "255,255,255"},0.7)`,
+          background: "#030303",
+          boxShadow: value ? "0 0 10px rgba(87,255,140,0.5)" : "none",
           position: "relative",
           transition: "all 0.15s ease",
         }}
@@ -80,13 +81,15 @@ export function SettingsScreen() {
                 onClick={() => updateSettings({ themeId: t.id })}
                 style={{
                   borderRadius: 14,
-                  border: `1.5px solid rgba(${t.primary},${active ? 1 : 0.4})`,
-                  background: `linear-gradient(135deg, rgba(${t.primary},0.25), rgba(${t.secondary},0.15))`,
+                  border: `1.5px solid rgba(${t.primary},${active ? 1 : 0.5})`,
+                  background: "#030303",
                   padding: "12px 10px",
                   color: "#fff",
                   fontSize: 13,
                   fontWeight: 700,
-                  boxShadow: active ? `0 0 16px rgba(${t.primary},0.7)` : "none",
+                  boxShadow: active
+                    ? `0 0 16px rgba(${t.primary},0.7), inset 0 0 10px rgba(${t.primary},0.15)`
+                    : `0 0 6px rgba(${t.primary},0.2)`,
                   textAlign: "left",
                 }}
               >

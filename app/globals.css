@@ -13,6 +13,10 @@
   --nav-height: 76px;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
+  /* Solid opaque black used for every control/panel interior so the
+     particle background never shows through readable surfaces. */
+  --solid-black: #030303;
+  --solid-black-2: #060606;
 }
 
 * {
@@ -101,22 +105,15 @@ button {
   margin: 4px 2px 12px;
 }
 
-/* ---------- Frosted glass core ---------- */
+/* ---------- Solid-black panel core (opaque, never see-through) ---------- */
 
 .glass-panel {
   position: relative;
-  background: linear-gradient(
-    160deg,
-    rgba(var(--glass-tint), 0.08),
-    rgba(8, 8, 14, 0.6) 55%,
-    rgba(var(--secondary), 0.05)
-  );
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  border: 1px solid rgba(var(--primary), 0.35);
+  background: var(--solid-black);
+  border: 1px solid rgba(var(--primary), 0.45);
   border-radius: 20px;
-  box-shadow: 0 0 0 1px rgba(var(--primary), 0.06), 0 0 20px rgba(var(--primary), 0.15),
-    0 6px 24px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 0 1px rgba(var(--primary), 0.08), 0 0 20px rgba(var(--primary), 0.18),
+    0 8px 24px rgba(0, 0, 0, 0.7);
   padding: 16px;
   margin-bottom: 14px;
 }
@@ -128,12 +125,11 @@ button {
 /* ---------- Display ---------- */
 
 .display-panel {
-  background: linear-gradient(160deg, rgba(8, 8, 14, 0.75), rgba(0, 0, 0, 0.6));
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1.5px solid rgba(var(--primary), 0.55);
+  background: var(--solid-black);
+  border: 1.5px solid rgba(var(--primary), 0.65);
   border-radius: 22px;
-  box-shadow: 0 0 24px rgba(var(--primary), 0.25), inset 0 0 30px rgba(var(--primary), 0.05);
+  box-shadow: 0 0 24px rgba(var(--primary), 0.3), 0 8px 28px rgba(0, 0, 0, 0.7),
+    inset 0 0 24px rgba(0, 0, 0, 0.6);
   padding: 18px 20px;
   margin-bottom: 16px;
   min-height: 118px;
@@ -146,7 +142,7 @@ button {
 
 .display-expression {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.55);
   min-height: 18px;
   max-width: 100%;
   overflow-x: auto;
@@ -157,8 +153,8 @@ button {
 .display-value {
   font-size: clamp(32px, 10vw, 52px);
   font-weight: 700;
-  color: #fff;
-  text-shadow: 0 0 14px rgba(var(--primary), 0.6);
+  color: #ffffff;
+  text-shadow: 0 0 14px rgba(var(--primary), 0.65);
   text-align: right;
   width: 100%;
   overflow-x: auto;
@@ -170,20 +166,19 @@ button {
   display: none;
 }
 
-/* ---------- Buttons: glass islands ---------- */
+/* ---------- Buttons: solid black islands with neon edges ---------- */
 
 .glass-btn {
   --btn-color: 0, 255, 240;
   position: relative;
-  border: 1.5px solid rgba(var(--btn-color), 0.6);
-  background: linear-gradient(160deg, rgba(var(--btn-color), 0.12), rgba(10, 10, 16, 0.55));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(var(--btn-color), 0.75);
+  background: var(--solid-black-2);
   border-radius: 18px;
-  color: #fff;
+  color: #ffffff;
   font-size: 20px;
   font-weight: 700;
-  box-shadow: 0 0 12px rgba(var(--btn-color), 0.35), 0 4px 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 12px rgba(var(--btn-color), 0.4), 0 4px 10px rgba(0, 0, 0, 0.6),
+    inset 0 0 14px rgba(0, 0, 0, 0.5);
   transition: transform 0.06s ease, box-shadow 0.1s ease;
   min-height: 58px;
   min-width: 44px;
@@ -201,11 +196,13 @@ button {
 
 .glass-btn-pressed {
   transform: scale(0.94);
-  box-shadow: 0 0 24px rgba(var(--btn-color), 0.75), 0 2px 6px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 26px rgba(var(--btn-color), 0.85), 0 2px 6px rgba(0, 0, 0, 0.6),
+    inset 0 0 14px rgba(0, 0, 0, 0.5);
 }
 
 .glass-btn:hover {
-  box-shadow: 0 0 18px rgba(var(--btn-color), 0.55), 0 4px 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 18px rgba(var(--btn-color), 0.6), 0 4px 10px rgba(0, 0, 0, 0.6),
+    inset 0 0 14px rgba(0, 0, 0, 0.5);
 }
 
 .glass-btn:disabled {
@@ -222,10 +219,8 @@ button {
   bottom: 0;
   z-index: 20;
   padding: 10px 10px calc(10px + var(--safe-bottom));
-  background: rgba(4, 4, 8, 0.6);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border-top: 1px solid rgba(var(--primary), 0.3);
+  background: #000000;
+  border-top: 1px solid rgba(var(--primary), 0.35);
 }
 
 .bottom-nav-scroll {
@@ -248,9 +243,9 @@ button {
   scroll-snap-align: start;
   padding: 10px 16px;
   border-radius: 999px;
-  border: 1.5px solid rgba(var(--pill-color), 0.4);
-  background: rgba(var(--pill-color), 0.08);
-  color: rgba(255, 255, 255, 0.75);
+  border: 1.5px solid rgba(var(--pill-color), 0.5);
+  background: var(--solid-black-2);
+  color: rgba(255, 255, 255, 0.8);
   font-size: 13px;
   font-weight: 700;
   white-space: nowrap;
@@ -258,29 +253,28 @@ button {
 }
 
 .nav-pill-active {
-  color: #fff;
-  border-color: rgba(var(--pill-color), 0.9);
-  box-shadow: 0 0 16px rgba(var(--pill-color), 0.6);
-  background: rgba(var(--pill-color), 0.18);
+  color: #ffffff;
+  border-color: rgba(var(--pill-color), 1);
+  box-shadow: 0 0 18px rgba(var(--pill-color), 0.75), inset 0 0 10px rgba(var(--pill-color), 0.15);
+  background: var(--solid-black-2);
 }
 
-/* ---------- Form controls ---------- */
+/* ---------- Form controls (solid black, no see-through) ---------- */
 
 .neon-input {
   width: 100%;
   padding: 12px 14px;
   border-radius: 14px;
-  border: 1.5px solid rgba(var(--primary), 0.4);
-  background: rgba(10, 10, 16, 0.55);
-  backdrop-filter: blur(8px);
-  color: #fff;
+  border: 1.5px solid rgba(var(--primary), 0.5);
+  background: var(--solid-black-2);
+  color: #ffffff;
   font-size: 16px;
   outline: none;
 }
 
 .neon-input:focus {
-  border-color: rgba(var(--primary), 0.9);
-  box-shadow: 0 0 0 3px rgba(var(--primary), 0.2);
+  border-color: rgba(var(--primary), 0.95);
+  box-shadow: 0 0 0 3px rgba(var(--primary), 0.25);
 }
 
 .neon-label {
@@ -288,7 +282,7 @@ button {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.6);
   margin-bottom: 6px;
   display: block;
 }
@@ -297,9 +291,9 @@ button {
   width: 100%;
   padding: 12px 14px;
   border-radius: 14px;
-  border: 1.5px solid rgba(var(--secondary), 0.4);
-  background: rgba(10, 10, 16, 0.55);
-  color: #fff;
+  border: 1.5px solid rgba(var(--secondary), 0.5);
+  background: var(--solid-black-2);
+  color: #ffffff;
   font-size: 15px;
   outline: none;
 }
@@ -309,7 +303,7 @@ button {
   justify-content: space-between;
   align-items: baseline;
   padding: 8px 0;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
   font-size: 14px;
 }
 
@@ -321,7 +315,7 @@ button {
   font-size: 18px;
   font-weight: 800;
   color: rgb(var(--text-accent));
-  text-shadow: 0 0 8px rgba(var(--text-accent), 0.5);
+  text-shadow: 0 0 8px rgba(var(--text-accent), 0.55);
 }
 
 .chip-row {
@@ -334,16 +328,17 @@ button {
 .chip-btn {
   padding: 8px 14px;
   border-radius: 999px;
-  border: 1.5px solid rgba(var(--primary), 0.45);
-  background: rgba(var(--primary), 0.1);
-  color: #fff;
+  border: 1.5px solid rgba(var(--primary), 0.55);
+  background: var(--solid-black-2);
+  color: #ffffff;
   font-size: 13px;
   font-weight: 700;
 }
 
 .chip-btn-active {
-  background: rgba(var(--primary), 0.3);
-  box-shadow: 0 0 12px rgba(var(--primary), 0.5);
+  border-color: rgba(var(--primary), 1);
+  box-shadow: 0 0 14px rgba(var(--primary), 0.6), inset 0 0 8px rgba(var(--primary), 0.12);
+  background: var(--solid-black-2);
 }
 
 .grid-2 {
@@ -361,19 +356,20 @@ button {
 .section-heading {
   font-size: 14px;
   font-weight: 800;
-  color: #fff;
+  color: #ffffff;
   margin: 4px 0 10px;
 }
 
 .swap-btn {
   border-radius: 999px;
-  border: 1.5px solid rgba(var(--secondary), 0.6);
-  background: rgba(var(--secondary), 0.15);
-  color: #fff;
+  border: 1.5px solid rgba(var(--secondary), 0.7);
+  background: var(--solid-black-2);
+  color: #ffffff;
   padding: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 0 10px rgba(var(--secondary), 0.35);
 }
 
 a {
